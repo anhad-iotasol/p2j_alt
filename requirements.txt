@@ -1,0 +1,6 @@
+langchain
+flask
+flask-swagger-ui
+google.generativeai
+openai
+streamlit

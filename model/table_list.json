@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Suppliers",
+        "schema": {
+            "type": "object",
+            "required": [
+                "name",
+                "Address Line 1",
+                "State",
+                "Country",
+                "erp_type",
+                "erp_id",
+                "duns",
+                "non profit",
+                "risk_level",
+                "performance_rating",
+                "status"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": ""
+                },
+                "Address Line 1": {
+                    "type": "string",
+                    "default": ""
+                },
+                "State": {
+                    "type": "string",
+                    "default": ""
+                },
+                "Country": {
+                    "type": "string",
+                    "default": ""
+                },
+                "erp_type": {
+                    "type": "string",
+                    "default": ""
+                },
+                "erp_id": {
+                    "type": "string",
+                    "default": ""
+                },
+                "duns": {
+                    "type": "integer",
+                    "default": ""
+                },
+                "non profit": {
+                    "type": "string",
+                    "default": ""
+                },
+                "risk_level": {
+                    "type": "string",
+                    "default": ""
+                },
+                "performance_rating": {
+                    "type": "integer",
+                    "default": ""
+                },
+                "status": {
+                    "type": "string",
+                    "default": "Draft"
+                }
+            }
+        }
+    }
+]

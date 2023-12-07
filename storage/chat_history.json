@@ -1,0 +1,38 @@
+{
+    "Form": [
+        {
+            "role": "user",
+            "content": "Create a form to record details of supplier. These are the fields which need to be included - name (string), Address Line 1 (string), State (string), Country (string), erp_type(string), erp_id (string), duns (integer), non profit (string), risk_level (string), performance_rating (integer), and status (string). Set the default value of the status to be Draft."
+        },
+        {
+            "role": "assistant",
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\", \"Address Line 1\", \"State\", \"Country\", \"erp_type\", \"erp_id\", \"duns\", \"non profit\", \"risk_level\", \"performance_rating\", \"status\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+        },
+        {
+            "role": "user",
+            "content": "keep only name as the required field"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+        },
+        {
+            "role": "user",
+            "content": "change the data type of erp type to integer, with a default value of 10"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"integer\", \"default\": \"10\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+        },
+        {
+            "role": "user",
+            "content": "revert the changes"
+        },
+        {
+            "role": "assistant",
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\", \"Address Line 1\", \"State\", \"Country\", \"erp_type\", \"erp_id\", \"duns\", \"non profit\", \"risk_level\", \"performance_rating\", \"status\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+        }
+    ],
+    "Suppliers": [],
+    "Students": []
+}
