@@ -10,12 +10,11 @@ def update_history(message,entity,chat_history):
         json.dump(chat_history,file,indent=4)
 
 def clear_history(entity,chat_history):
-    def erase():
-        st.session_state.messages = []
-        chat_history[entity] = []
-        with open(HISTORY_PATH,'w') as file:
-            json.dump(chat_history,file,indent=4)
-    return erase
+    st.session_state.messages = []
+    chat_history[entity] = []
+    with open(HISTORY_PATH,'w') as file:
+        json.dump(chat_history,file,indent=4)
+
 
 def load_history(entity):
     chat_history = json.loads(Path(HISTORY_PATH).read_text())
@@ -24,6 +23,8 @@ def load_history(entity):
         chat_history[entity] = []
         with open(HISTORY_PATH,'w') as file:
             json.dump(chat_history,file,indent=4)
-    elif not "messages" in st.session_state:
+#    elif not "messages" in st.session_state:
+#        st.session_state.messages = chat_history[entity]
+    else:
         st.session_state.messages = chat_history[entity]
     return chat_history

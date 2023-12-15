@@ -63,9 +63,14 @@ def generate_form_converse(text: str,history):
     review_template = """\
     You are an AI assistant and an expert output parser.
 
-    You will be involved in a conversation with the user. In the first step when no prior prompt is given, the prompt will request the creation of a form, 
-    along with the description on the form fields (called properties) in the sentence. Extract key information from the prompt regarding the form
-    and output it according to the schema below.
+    You will be involved in a conversation with the user. In the first step when no prior prompt is given, you are to extract key information from the prompt
+    regarding the form and output it according to the schema below.
+
+    Also note that the prompt does not give the information on a form explicitly. The situation will be that of a user requesting entry of
+    data assuming that the form has been created. Do not use the data but, use the prompt to determine what fields will be present and 
+    what their data types should be. Also guess what fields should be required on your own.
+
+    Do not include any special characters like "-" in the field names
 
     {{
         "name" : (contains name of the form),
@@ -75,53 +80,60 @@ def generate_form_converse(text: str,history):
     
     examples = [
     {{
-        "prompt" : "Please create a new form, called Employees, which contains employee number(integer), employee name(string), address (string),
+        "prompt" : "Add a new supplier by the name of PRS & Co., they are located in 221B Baker Street, California, United States. They come under the ERP Type SAP, with
+        ERP ID of AA10110, DUNS is 694761. This is low risk, a non-profit supplier, with a performance rating of 5.0 out of 10.",
         "answer" : {{
-            "name" : "Employees",
-            "required" : [],
+            "name" : "Suppliers",
+            "required" : ["Name","ERP ID","DUNS"],
             "properties" : [
                 {{
-                    "name": "employee number",
+                    "name": "Name",
                     "type" : "string",
                     "default" : ""
                 }},
                 {{
-                    "name" : "employee name",
+                    "name" : "Address",
                     "type" : "string",
                     "default" : ""
                 }},
                 {{
-                    "name" : "address",
-                    "type" : "string",
-                    "default" : ""
-                }}
-            ]
-        }}
-    }},
-    {{
-        "prompt" : "I need to keep a track record of all the incoming guests, please create a form. the details included should be Name (string), contact number (integer), Entry time (string), Exit time(string), make the default entry time to be "6:00PM", and name and contact number should be required fields",
-        "answer" : {{
-            "name" : "Guests",
-            "required" : ["Name","contact number"],
-            "properties" : [
-                {{
-                    "name" : "Name",
+                    "name" : "State",
                     "type" : "string",
                     "default" : ""
                 }},
                 {{
-                    "name" : "contact number",
+                    "name" : "Country",
+                    "type" : "string",
+                    "default" : ""
+                }},
+                {{
+                    "name" : "ERP Type",
+                    "type" : "string",
+                    "default" : ""
+                }},
+                {{
+                    "name" : "ERP ID",
+                    "type" : "string",
+                    "default" : ""
+                }},
+                {{
+                    "name" : "DUNS",
                     "type" : "integer",
                     "default" : ""
                 }},
                 {{
-                    "name" : "Entry time",
+                    "name" : "risk level",
                     "type" : "string",
-                    "default" : "6:00PM"
+                    "default" : ""
                 }},
                 {{
-                    "name" : "Exit time",
-                    "type" : "string",
+                    "name" : "non profit",
+                    "type" : "boolean",
+                    "default" : "False"
+                }},
+                {{
+                    "name" : "performance rating",
+                    "type" : "float",
                     "default" : ""
                 }}
             ]

@@ -2,37 +2,38 @@
     "Form": [
         {
             "role": "user",
-            "content": "Create a form to record details of supplier. These are the fields which need to be included - name (string), Address Line 1 (string), State (string), Country (string), erp_type(string), erp_id (string), duns (integer), non profit (string), risk_level (string), performance_rating (integer), and status (string). Set the default value of the status to be Draft."
+            "content": "A new supplier - ABD International that is based in New Jersey, United States. This supplier is in the SAP with the ERP ID: C001452, DUNS - 292812311. The supplier is not a non-profit and its risk level is medium with a performance rating of 8.9 out of 10."
         },
         {
             "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\", \"Address Line 1\", \"State\", \"Country\", \"erp_type\", \"erp_id\", \"duns\", \"non profit\", \"risk_level\", \"performance_rating\", \"status\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}]}"
         },
         {
             "role": "user",
-            "content": "keep only name as the required field"
-        },
-        {
-            "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+            "content": "also note that there will be an additional field for Status, which will be set to Draft by default"
         },
         {
             "role": "user",
-            "content": "change the data type of erp type to integer, with a default value of 10"
+            "content": "also note that there will be an additional field for Status, which will be set to Draft by default"
         },
         {
             "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"integer\", \"default\": \"10\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
-        },
-        {
-            "role": "user",
-            "content": "revert the changes"
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"Status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
         },
         {
             "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"name\", \"Address Line 1\", \"State\", \"Country\", \"erp_type\", \"erp_id\", \"duns\", \"non profit\", \"risk_level\", \"performance_rating\", \"status\"], \"properties\": [{\"name\": \"name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address Line 1\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"erp_id\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"duns\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"risk_level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"performance_rating\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"Status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
         }
     ],
-    "Suppliers": [],
+    "Suppliers": [
+        {
+            "role": "user",
+            "content": "A new supplier - ABD International that is based in New Jersey, United States. This supplier is in the SAP with the ERP ID: C001452, DUNS - 292812311. The supplier is not a non-profit and its risk level is medium with a performance rating of 8.9 out of 10."
+        },
+        {
+            "role": "assistant",
+            "content": "{\n       \"action\": \"Create\",\n       \"form_data\": {\n           \"name\": \"ABD International\",\n           \"address\": \"New Jersey, United States\",\n           \"ERP ID\": \"C001452\",\n           \"DUNS\": \"292812311\",\n           \"non_profit\": \"false\",\n           \"risk level\": \"medium\",\n           \"performance rating\": \"8.9\"\n       }\n   }\n\n   Would you like to add any of the following properties or change any of the values shown above?\n   1. missing property 1\n   2. missing property 2"
+        }
+    ],
     "Students": []
 }

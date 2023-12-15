@@ -4,24 +4,16 @@
         "schema": {
             "type": "object",
             "required": [
-                "name",
-                "Address Line 1",
-                "State",
-                "Country",
-                "erp_type",
-                "erp_id",
-                "duns",
-                "non profit",
-                "risk_level",
-                "performance_rating",
-                "status"
+                "Name",
+                "ERP ID",
+                "DUNS"
             ],
             "properties": {
-                "name": {
+                "Name": {
                     "type": "string",
                     "default": ""
                 },
-                "Address Line 1": {
+                "Address": {
                     "type": "string",
                     "default": ""
                 },
@@ -33,31 +25,31 @@
                     "type": "string",
                     "default": ""
                 },
-                "erp_type": {
+                "ERP Type": {
                     "type": "string",
                     "default": ""
                 },
-                "erp_id": {
+                "ERP ID": {
                     "type": "string",
                     "default": ""
                 },
-                "duns": {
+                "DUNS": {
                     "type": "integer",
+                    "default": ""
+                },
+                "risk level": {
+                    "type": "string",
                     "default": ""
                 },
                 "non profit": {
-                    "type": "string",
+                    "type": "boolean",
+                    "default": "False"
+                },
+                "performance rating": {
+                    "type": "float",
                     "default": ""
                 },
-                "risk_level": {
-                    "type": "string",
-                    "default": ""
-                },
-                "performance_rating": {
-                    "type": "integer",
-                    "default": ""
-                },
-                "status": {
+                "Status": {
                     "type": "string",
                     "default": "Draft"
                 }

@@ -4,3 +4,4 @@ flask-swagger-ui
 google.generativeai
 openai
 streamlit
+python-dotenv

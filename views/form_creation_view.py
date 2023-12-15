@@ -7,23 +7,35 @@ from services.form_service import build_df
 from services.llm_parser.generate_schema import generate_table
 from controller.history_controller import update_history
 from paths import TABLE_LIST_PATH
+from services.Frappe import schema_to_json
+from services.Frappe.REST_service import submit_form
 
 
 def form_creation_view(chat_history,entity="Form"):
+    
     def onPublish(response:dict):
-        
-        def publish_json():
-            response_table = generate_table(response)
-            table_list: list = []
-            table_list.append(response_table)
-            with open(TABLE_LIST_PATH, 'w') as file:
-                json.dump(table_list, file, indent=4)
+        #def publish_json():
+        response_table = generate_table(response)
+        table_list: list = []
+        table_list.append(response_table)
+        with open(TABLE_LIST_PATH, 'w') as file:
+            json.dump(table_list, file, indent=4)
 
-            for table in table_list:
-                columns = list(table['schema']['properties'].keys())
-                build_df(columns,table['name'])
+        for table in table_list:
+            columns = list(table['schema']['properties'].keys())
+            build_df(columns,table['name'])
+        #return publish_json
 
-        return publish_json
+    def preview_form(response: dict):
+         #def publish_json():
+        response_table = generate_table(response)
+        table_list: list = []
+        table_list.append(response_table)
+        with open(TABLE_LIST_PATH, 'w') as file:
+            json.dump(table_list, file, indent=4)
+        request_body = schema_to_json(response_table)
+        submit_form(request_body)
+        return
 
 
     def response_to_df(response):
@@ -74,8 +86,11 @@ def form_creation_view(chat_history,entity="Form"):
             st.markdown(table_name)
             st.markdown(f"Required: {required}")
             st.dataframe(df)
-            publish_json = st.button("Publish", on_click=onPublish(response_dict),key="form_publish")
+            publish_json = st.button("Publish", on_click=onPublish,args=[response_dict],key="form_publish")
         update_history({
             "role" : "assistant",
             "content" : response_json
         },entity,chat_history)
+        preview_form(response_dict)
+
+
