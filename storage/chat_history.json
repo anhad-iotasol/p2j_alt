@@ -10,19 +10,19 @@
         },
         {
             "role": "user",
-            "content": "also note that there will be an additional field for Status, which will be set to Draft by default"
+            "content": "please ensure that there is a field recording the status, set it to draft as default"
         },
         {
             "role": "user",
-            "content": "also note that there will be an additional field for Status, which will be set to Draft by default"
+            "content": "please ensure that there is a field recording the status, set it to draft as default"
         },
         {
             "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"Status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"draft\"}]}"
         },
         {
             "role": "assistant",
-            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"Status\", \"type\": \"string\", \"default\": \"Draft\"}]}"
+            "content": "{\"name\": \"Suppliers\", \"required\": [\"Name\", \"ERP ID\", \"DUNS\"], \"properties\": [{\"name\": \"Name\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Address\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"State\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"Country\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP Type\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"ERP ID\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"DUNS\", \"type\": \"integer\", \"default\": \"\"}, {\"name\": \"risk level\", \"type\": \"string\", \"default\": \"\"}, {\"name\": \"non profit\", \"type\": \"boolean\", \"default\": \"False\"}, {\"name\": \"performance rating\", \"type\": \"float\", \"default\": \"\"}, {\"name\": \"status\", \"type\": \"string\", \"default\": \"draft\"}]}"
         }
     ],
     "Suppliers": [

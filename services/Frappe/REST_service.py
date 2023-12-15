@@ -2,9 +2,13 @@ import requests
 import json
 from pathlib import Path
 import webbrowser
+from dotenv import load_dotenv,find_dotenv
+import os
 
-BASE_URL = 'http://testsite.localhost:8000'
-auth_header = "token 48fa8013272009b:bc80fff76c1a83f"
+_ = load_dotenv(find_dotenv())
+
+BASE_URL = os.environ['FRAPPE_BASE_URL']
+auth_header = f"token {os.environ['FRAPPE_KEY']}:{os.environ['FRAPPE_SECRET']}"
 
 request_body = json.loads(Path('./json_output.json').read_text())
 
@@ -43,10 +47,3 @@ def submit_form(request_body):
     if not docExists: publish_and_preview(request_body)
     else: update_and_preview(request_body)
     return
-
-#request_body = json.loads(Path('./json_output.json').read_text())
-#response = publish_form(request_body)
-    
-#print(response.json())
-#response = publish_and_preview(request_body)
-#print(response)
