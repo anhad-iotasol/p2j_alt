@@ -9,22 +9,14 @@ from controller.history_controller import update_history
 from paths import TABLE_LIST_PATH
 from services.Frappe import schema_to_json
 from services.Frappe.REST_service import submit_form
+import streamlit.components.v1 as components
+from services.Frappe.REST_service import frappe_login
+from dotenv import load_dotenv,find_dotenv
+import os
 
+_ = load_dotenv(find_dotenv())
 
 def form_creation_view(chat_history,entity="Form"):
-    
-    def onPublish(response:dict):
-        #def publish_json():
-        response_table = generate_table(response)
-        table_list: list = []
-        table_list.append(response_table)
-        with open(TABLE_LIST_PATH, 'w') as file:
-            json.dump(table_list, file, indent=4)
-
-        for table in table_list:
-            columns = list(table['schema']['properties'].keys())
-            build_df(columns,table['name'])
-        #return publish_json
 
     def preview_form(response: dict):
          #def publish_json():
@@ -37,7 +29,6 @@ def form_creation_view(chat_history,entity="Form"):
         submit_form(request_body)
         return
 
-
     def response_to_df(response):
         display_json = {"Property": ["Data Type","Default"]}
         properties = response['properties']
@@ -45,7 +36,6 @@ def form_creation_view(chat_history,entity="Form"):
             display_json.update({field['name']:[field['type'],field['default']]})
         df = pd.DataFrame(display_json)
         return df
-
 
     def parse_response(response:str):
         response_dict = json.loads(response)
@@ -65,8 +55,6 @@ def form_creation_view(chat_history,entity="Form"):
                 st.markdown(f"Required: {required}")
                 st.dataframe(df)
 
-
-
     if prompt := st.chat_input("enter prompt"):
         st.chat_message("user").markdown(prompt)
 
@@ -80,17 +68,21 @@ def form_creation_view(chat_history,entity="Form"):
 
         with st.chat_message("assistant"):
             response_dict = json.loads(response_json)
+            preview_form(response_dict)
             table_name = response_dict['name']
-            required = response_dict['required']
-            df = response_to_df(response_dict)
-            st.markdown(table_name)
-            st.markdown(f"Required: {required}")
-            st.dataframe(df)
-            publish_json = st.button("Publish", on_click=onPublish,args=[response_dict],key="form_publish")
+            #sid = frappe_login()
+            #components.iframe(f"http://testsite.test:8000/app/doctype/{table_name}?sid={sid}&parent=DocType",height=600,scrolling=True)
+            #components.iframe(f"{os.environ['PDF_LINK']}&sid={sid}",height=600,scrolling=True)
+            #required = response_dict['required']
+            #df = response_to_df(response_dict)
+            #st.markdown(table_name)
+            #st.markdown(f"Required: {required}")
+            #st.dataframe(df)
+            #publish_json = st.button("Publish", on_click=onPublish,args=[response_dict],key="form_publish")
         update_history({
             "role" : "assistant",
             "content" : response_json
         },entity,chat_history)
-        preview_form(response_dict)
+        
 
 

@@ -47,3 +47,27 @@ def submit_form(request_body):
     if not docExists: publish_and_preview(request_body)
     else: update_and_preview(request_body)
     return
+
+def frappe_login():
+    response = requests.get(f"{BASE_URL}/api/method/login",json={
+        "usr" : os.environ['FRAPPE_USERID'],
+        "pwd" : os.environ['FRAPPE_PWD']
+    })
+    sid = response.cookies['sid']
+    return sid
+
+def testfrappe():
+    response = requests.get(f"{BASE_URL}/api/resource/DocType",cookies={
+
+    })
+    return response
+
+#login_response = login("Administrator","admin")
+#test_response = testfrappe()
+
+#print(login_response.json())
+#print(login_response.cookies['sid'])
+
+#print("###################################################################")
+
+#print(test_response.json())

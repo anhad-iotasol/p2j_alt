@@ -49,9 +49,9 @@
                     "type": "float",
                     "default": ""
                 },
-                "status": {
+                "Status": {
                     "type": "string",
-                    "default": "draft"
+                    "default": "Draft"
                 }
             }
         }
