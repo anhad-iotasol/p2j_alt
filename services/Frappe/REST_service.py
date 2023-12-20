@@ -62,6 +62,10 @@ def testfrappe():
     })
     return response
 
+def onPublish(form_name:str):
+    webbrowser.open(f"{BASE_URL}/app/{form_name.lower()}")
+    return
+
 #login_response = login("Administrator","admin")
 #test_response = testfrappe()
 

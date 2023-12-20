@@ -5,6 +5,7 @@ from langchain.output_parsers import StructuredOutputParser, PydanticOutputParse
 from langchain.prompts import PromptTemplate
 from langchain.prompts import ChatPromptTemplate
 import json
+from pathlib import Path
 
 # Different experimental templates to use in different situations.
 
@@ -58,6 +59,34 @@ def form_template_conversational(form_schema):
     prompt_template = PromptTemplate(input_variables=["history","input","form_schema"], template= template)
     partial_prompt = prompt_template.partial(form_schema=str(form_schema))
     return partial_prompt
+
+def form_template_single(form_schema):
+    template = """
+    You are an AI assistant helping users in performing an action on entries of a form, the schema of which has been provided to you.
+    use the schema to extract extract the form properties in the form of key-value pairs and output the data as a json string.
+    The schema provided is a json object, with each key being the name of the property, and the value is an object containing the data type and default value.
+
+            your output should look like this: 
+
+  
+            {{
+                "property name 1" : "property value 1",
+                "property name 2" : "property value 2"
+            }}
+            
+            and so on for all properties listed. Some properties may not be provided, use the default values in that case.
+
+            schema: {form_schema}
+
+    Display the only final JSON as your output without any additional text.
+
+    Human: {input}
+    assistant: 
+    """
+    prompt_template = PromptTemplate(input_variables=["input","form_schema"], template= template)
+    partial_prompt = prompt_template.partial(form_schema=str(form_schema))
+    return partial_prompt
+
 
 def generate_form_converse(text: str,history):
     review_template = """\
@@ -171,3 +200,38 @@ def generate_form_converse(text: str,history):
     #print(str(dict_data)[45:55])
     #table = generate_table(dict_data)
     return parsed_response
+
+
+def chatbot_message(text:str,history):
+    review_template = """
+        Given below is a history of messages made by a user and an AI assistant trying to create a form. 
+        
+        The prompts are given as if the user is trying to enter new data in an existing form, but this information is being used to create the form metadata instead.
+        The values are irrelevant and should not be mentioned. 
+
+        You are a different chatbot assistant. Your is informing the user that the changes they requested after the latest prompt have been reflected on the platform.
+        Write an appropriate message detailing the changes made and give a response based on the latest prompt.
+
+        If the history is empty, then the latest prompt will request form creation, so respond accordingly. If it is non-empty,
+        then changes are being made to an existing form, so respond w.r.t to the changes made.
+
+        For example - if a user is giving you details of a supplier form. Mention that the supplier form has been created and can be viewed on the platform,
+        and also ask whether they would like to publish the form or make any further changes
+
+        history : {history}
+
+        human : {prompt}
+
+        assistant: 
+    """
+
+    prompt = ChatPromptTemplate.from_template(template=review_template)
+    messages = prompt.format_messages(
+        prompt=text,history=history)
+    response = model(messages[0].content)
+
+    return response
+
+#history = json.loads(Path('./storage/chat_history.json').read_text())['Form']
+
+#text = "A new supplier - ABD International that is based in New Jersey, United States. This supplier is in the SAP with the ERP ID: C001452, DUNS - 292812311. The supplier is not a non-profit and its risk level is medium with a performance rating of 8.9 out of 10."

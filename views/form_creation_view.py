@@ -1,22 +1,24 @@
 import streamlit as st
-from services.llm_parser import generate_form_converse
+from services.llm_parser import generate_form_converse, chatbot_message
 import json
 from pathlib import Path
 import pandas as pd
 from services.form_service import build_df
 from services.llm_parser.generate_schema import generate_table
 from controller.history_controller import update_history
-from paths import TABLE_LIST_PATH
+from paths import TABLE_LIST_PATH,HISTORY_PATH,ALT_HISTORY_PATH
 from services.Frappe import schema_to_json
 from services.Frappe.REST_service import submit_form
 import streamlit.components.v1 as components
-from services.Frappe.REST_service import frappe_login
+from services.Frappe.REST_service import frappe_login,onPublish
 from dotenv import load_dotenv,find_dotenv
 import os
 
+
 _ = load_dotenv(find_dotenv())
 
-def form_creation_view(chat_history,entity="Form"):
+def form_creation_view(chat_history,chat_history_alt,entity="Form"):
+    
 
     def preview_form(response: dict):
          #def publish_json():
@@ -45,15 +47,16 @@ def form_creation_view(chat_history,entity="Form"):
         return [table_name,required,df]
 
     # displaying the user and AI chat history as previous chat messages.
-    for message in st.session_state["messages"]:
+    #for message in st.session_state["messages"]:
+    for message in chat_history_alt[entity]:
         with st.chat_message(message["role"]):
-            #st.markdown(message['content'])
-            if message['role'] == 'user' : st.markdown(message["content"])
-            elif message['role'] == 'assistant' : 
-                table_name,required,df = parse_response(message['content'])
-                st.markdown(table_name)
-                st.markdown(f"Required: {required}")
-                st.dataframe(df)
+            st.markdown(message['content'])
+            #if message['role'] == 'user' : st.markdown(message["content"])
+            #elif message['role'] == 'assistant' : 
+            #    table_name,required,df = parse_response(message['content'])
+            #    st.markdown(table_name)
+            #    st.markdown(f"Required: {required}")
+            #    st.dataframe(df)
 
     if prompt := st.chat_input("enter prompt"):
         st.chat_message("user").markdown(prompt)
@@ -62,9 +65,14 @@ def form_creation_view(chat_history,entity="Form"):
         update_history({
             "role": "user",
             "content" : prompt
-        },entity,chat_history)
+        },entity,chat_history,HISTORY_PATH)
+        update_history({
+            "role": "user",
+            "content" : prompt
+        },entity,chat_history_alt,ALT_HISTORY_PATH)
 
         response_json = generate_form_converse(prompt,history=str(st.session_state.messages))
+        chatbot_response = chatbot_message(prompt,history=str(st.session_state.messages))
 
         with st.chat_message("assistant"):
             response_dict = json.loads(response_json)
@@ -78,11 +86,17 @@ def form_creation_view(chat_history,entity="Form"):
             #st.markdown(table_name)
             #st.markdown(f"Required: {required}")
             #st.dataframe(df)
-            #publish_json = st.button("Publish", on_click=onPublish,args=[response_dict],key="form_publish")
+            st.markdown(chatbot_response)
+          #  st.markdown()
+            publish_json = st.button("Publish", on_click=onPublish,args=[table_name],key="form_publish")
         update_history({
             "role" : "assistant",
             "content" : response_json
-        },entity,chat_history)
+        },entity,chat_history,HISTORY_PATH)
+        update_history({
+            "role" : "assistant",
+            "content" : chatbot_response
+        },entity,chat_history_alt,ALT_HISTORY_PATH)
         
 
 
