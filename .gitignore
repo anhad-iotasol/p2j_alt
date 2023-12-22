@@ -4,3 +4,4 @@ json_output.json
 **/__pycache__/
 /model/**
 /storage/**
+llm_chain.py

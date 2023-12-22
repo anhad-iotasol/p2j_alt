@@ -1,5 +1,5 @@
-import streamlit as st
 import json
+import streamlit as st
 from pathlib import Path
 from paths import HISTORY_PATH,ALT_HISTORY_PATH
 
@@ -19,6 +19,7 @@ def clear_history(entity,chat_history,history_path):
 def clear_history_all(entity,chat_history,chat_history_alt):
     clear_history(entity,chat_history,HISTORY_PATH)
     clear_history(entity,chat_history_alt,ALT_HISTORY_PATH)
+#    if 'initial_prompt' in st.session_state.keys(): del st.session_state['initial_prompt']
     return
 
 

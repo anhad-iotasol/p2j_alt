@@ -1,11 +1,11 @@
+import json
+from pathlib import Path
 from services.llm_parser.models.PaLM2 import model
 from services.llm_parser.response_schema import Form
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser, PydanticOutputParser
 from langchain.prompts import PromptTemplate
 from langchain.prompts import ChatPromptTemplate
-import json
-from pathlib import Path
 
 # Different experimental templates to use in different situations.
 
@@ -60,7 +60,7 @@ def form_template_conversational(form_schema):
     partial_prompt = prompt_template.partial(form_schema=str(form_schema))
     return partial_prompt
 
-def form_template_single(form_schema):
+def form_template_single(text,form_schema):
     template = """
     You are an AI assistant helping users in performing an action on entries of a form, the schema of which has been provided to you.
     use the schema to extract extract the form properties in the form of key-value pairs and output the data as a json string.
@@ -70,11 +70,12 @@ def form_template_single(form_schema):
 
   
             {{
-                "property name 1" : "property value 1",
+                "property name 1" : prompt"property value 1",
                 "property name 2" : "property value 2"
             }}
             
-            and so on for all properties listed. Some properties may not be provided, use the default values in that case.
+            and so on for all properties listed. Some properties may not be provided, omit the property from the json itself
+            for such cases.
 
             schema: {form_schema}
 
@@ -83,9 +84,12 @@ def form_template_single(form_schema):
     Human: {input}
     assistant: 
     """
-    prompt_template = PromptTemplate(input_variables=["input","form_schema"], template= template)
-    partial_prompt = prompt_template.partial(form_schema=str(form_schema))
-    return partial_prompt
+    prompt = ChatPromptTemplate.from_template(template=template)
+
+    messages = prompt.format_messages(
+        input=text,form_schema=str(form_schema))
+    response = model(messages[0].content)
+    return json.loads(response)
 
 
 def generate_form_converse(text: str,history):

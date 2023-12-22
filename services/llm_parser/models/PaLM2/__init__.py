@@ -1,8 +1,7 @@
-from langchain.embeddings import GooglePalmEmbeddings
-from langchain.llms import GooglePalm
-import google.generativeai
 import os
 from dotenv import load_dotenv, find_dotenv
+from langchain.llms import GooglePalm
+from langchain.embeddings import GooglePalmEmbeddings
 
 _ = load_dotenv(find_dotenv())
 

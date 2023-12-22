@@ -1,6 +1,6 @@
-from langchain.llms.openai import OpenAI
 import os
 from dotenv import load_dotenv, find_dotenv
+from langchain.llms.openai import OpenAI
 
 _ = load_dotenv(find_dotenv())
 

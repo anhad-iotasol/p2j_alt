@@ -1,9 +1,11 @@
-import requests
-import json
-from pathlib import Path
-import webbrowser
-from dotenv import load_dotenv,find_dotenv
 import os
+import json
+import requests
+import webbrowser
+from pathlib import Path
+from dotenv import load_dotenv,find_dotenv
+from services.llm_parser import form_template_single
+#from services.Frappe.schema_parser import get_schema
 
 _ = load_dotenv(find_dotenv())
 
@@ -26,7 +28,7 @@ def delete_form(name):
 
 def publish_and_preview(request_body):
     response = publish_form(request_body)
-    print(response.json())
+    #print(response.json())
     webbrowser.open(f"{BASE_URL}/app/doctype/{request_body['name']}")
     return response
 
@@ -62,16 +64,41 @@ def testfrappe():
     })
     return response
 
-def onPublish(form_name:str):
-    webbrowser.open(f"{BASE_URL}/app/{form_name.lower()}")
+def get_schema(doctype:str):
+    response = call_endpoint_get(f"/api/resource/DocType/{doctype}")['data']
+    schema = dict({
+        "schema" : {
+            "properties" :{}
+        }
+    })
+    schema['name'] = response['name']
+    for field in response['fields']:
+        schema['schema']['properties'][field['fieldname']] = {
+            "fieldtype" : field['fieldtype']
+            #"default" : ("" if not 'default' in field.keys() else field['default'])
+        }
+        if 'default' in field.keys():
+            schema['schema']['properties'][field['fieldname']]['default'] = field['default']
+    return schema
+
+def insert_data(req_body:dict,doctype:str):
+    response = requests.post(f"{BASE_URL}/api/resource/Suppliers",json=req_body,
+                             headers={
+                                 "Authorization" : auth_header
+                             })
+    record_id = json.loads(response.content)['data']['name']
+    return record_id
+
+def onPublish(text:str,form_name:str):
+    form_schema = get_schema(form_name)
+    req_body = form_template_single(text,form_schema)
+    record_id = insert_data(req_body,form_name)
+    webbrowser.open(f"{BASE_URL}/app/{form_name.lower()}/{record_id}")
     return
 
-#login_response = login("Administrator","admin")
-#test_response = testfrappe()
-
-#print(login_response.json())
-#print(login_response.cookies['sid'])
-
-#print("###################################################################")
-
-#print(test_response.json())
+def call_endpoint_get(endpoint:str):
+    #print(f"{BASE_URL}{endpoint}")
+    response = requests.get(f"{BASE_URL}{endpoint}",headers={
+        "Authorization" : auth_header
+    })
+    return json.loads(response.content)

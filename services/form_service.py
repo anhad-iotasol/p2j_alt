@@ -1,7 +1,7 @@
-import pandas as pd
 import json
-from pathlib import Path
+import pandas as pd
 from paths import TABLE_BASE_PATH
+from pathlib import Path
 
 # Builds a DataFrame acc. to the form schema and saves it as csv
 def build_df(columns:list[str],table_name:str):
